@@ -17,7 +17,10 @@ module Api
     
       # POST /products
       def create
-        @category = Category.new(category_params)        
+        # binding.pry
+        @category = Category.new(category_params)   
+        
+             
         if @category.save
           render json: @category, status: :created
         else
@@ -45,7 +48,7 @@ module Api
         end
     
         def category_params
-          params.require(:category).permit(:name)
+          params.require(:category).permit(:name, :image)
         end
       
     end

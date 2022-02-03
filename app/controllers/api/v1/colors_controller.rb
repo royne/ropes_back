@@ -45,7 +45,7 @@ module Api
         end
     
         def color_params
-          params.require(:color).permit(:name)
+          params.require(:color).permit(:name, :code)
         end
       
     end
