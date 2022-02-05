@@ -18,7 +18,17 @@ module Api
     
       # POST /products
       def create
-        @product = Product.new(product_params)        
+        @product = Product.new(product_params)   
+        if params[:product][:photos].present?
+          array_photos = []
+          params[:product][:photos].each {|x| array_photos.push(x[1])}
+          @product.photos = array_photos  
+        end   
+        if @product.save
+          render json: @product, status: :created
+        else
+          render json: @product.errors, status: :unprocessable_entity
+        end
         # if @product.save
         #   if Rails.env.production?
         #     result_image = Cloudinary::Uploader.upload(params[:image_file][:image], :folder => "artykrea/") 
@@ -53,7 +63,7 @@ module Api
         end
     
         def product_params
-          params.require(:product).permit(:name, :description, :dimension, :category_id)
+          params.require(:product).permit(:name, :description, :dimension, :category_id, {:photos => [], :color_ids => []})
         end
       
     end
