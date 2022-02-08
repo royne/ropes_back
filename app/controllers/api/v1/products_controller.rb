@@ -23,7 +23,8 @@ module Api
           array_photos = []
           params[:product][:photos].each {|x| array_photos.push(x[1])}
           @product.photos = array_photos  
-        end   
+        end
+        @product.color_ids = params[:product][:color_ids].split(",") if params[:product][:color_ids].present?
         if @product.save
           render json: @product, status: :created
         else
