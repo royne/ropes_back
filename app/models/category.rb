@@ -5,4 +5,10 @@ class Category < ApplicationRecord
     attachable.variant :thumb, resize_to_limit: [300, 300]
   end
 
+  before_create :name_downcase
+
+  def name_downcase
+    self.name.downcase
+  end
+
 end

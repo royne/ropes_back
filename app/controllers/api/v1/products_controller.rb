@@ -2,7 +2,7 @@ module Api
   module V1
     class ProductsController < ApplicationController
       include Rails.application.routes.url_helpers
-      before_action :set_product, only: [:show, :update, :destroy]
+      before_action :set_product, only: [:update, :destroy]
     
       # GET /products
       def index
@@ -13,7 +13,8 @@ module Api
     
       # GET /products/1
       def show
-        render json: @product
+        product = Product.find_by(name: params[:id])
+        render json: product
       end
     
       # POST /products

@@ -3,4 +3,10 @@ class Product < ApplicationRecord
   has_and_belongs_to_many :colors
 
   has_many_attached :photos
+
+  before_create :name_downcase
+
+  def name_downcase
+    self.name.downcase
+  end
 end

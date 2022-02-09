@@ -1,7 +1,7 @@
 module Api
   module V1
     class CategoriesController < ApplicationController
-      before_action :set_category, only: [:show, :update, :destroy]
+      before_action :set_category, only: [:update, :destroy]
     
       # GET /products
       def index
@@ -12,7 +12,8 @@ module Api
     
       # GET /products/1
       def show
-        render json: @category
+        category = Category.find_by(name: params[:id])
+        render json: category
       end
     
       # POST /products
