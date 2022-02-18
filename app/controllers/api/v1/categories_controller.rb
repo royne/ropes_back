@@ -18,7 +18,6 @@ module Api
     
       # POST /products
       def create
-        # binding.pry
         @category = Category.new(category_params)   
         
              
