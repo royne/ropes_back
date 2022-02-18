@@ -6,7 +6,7 @@ module Api
     
       # GET /products
       def index
-        @products = Product.all
+        @products = Product.all.includes(:category, :colors)
     
         render json: @products
       end

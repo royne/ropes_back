@@ -1,7 +1,7 @@
 class ProductSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :name, :dimension, :description, :photos, :colors
+  attributes :id, :name, :dimension, :description, :photos, :colors, :category
 
   def photos
     object.photos.map { |x| Cloudinary::Utils.cloudinary_url(x.key, cloud_name: ENV['cloudinary_cloud_name'] ) } if object.photos.attached?  
@@ -9,5 +9,9 @@ class ProductSerializer < ActiveModel::Serializer
 
   def products 
     object.colors
+  end
+
+  def category
+    object.category
   end
 end
