@@ -5,7 +5,11 @@ module Api
     
       # GET /products
       def index
-        @categories = Category.all
+        if params[:parents].present?
+          @categories = Category.parents
+        else
+          @categories = Category.all
+        end
     
         render json: @categories
       end
@@ -48,7 +52,7 @@ module Api
         end
     
         def category_params
-          params.require(:category).permit(:name, :image)
+          params.require(:category).permit(:name, :image, :parent_category_id)
         end
       
     end
