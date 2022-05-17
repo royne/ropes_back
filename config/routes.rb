@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :products
       resources :categories
       resources :colors
+      resources :messages, only: [:index, :create]
 
     end
   end

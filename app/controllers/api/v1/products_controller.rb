@@ -13,7 +13,7 @@ module Api
     
       # GET /products/1
       def show
-        product = Product.find_by(name: params[:id])
+        product = params[:type_id].present? ? Product.find(params[:id]) : Product.find_by(name: params[:id])
         render json: product
       end
     
@@ -47,6 +47,7 @@ module Api
     
       # PATCH/PUT /products/1
       def update
+        @product.color_ids = params[:product][:color_ids].split(",") if params[:product][:color_ids].present?
         if @product.update(product_params)
           render json: @product
         else
