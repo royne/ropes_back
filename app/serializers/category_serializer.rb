@@ -12,7 +12,7 @@ class CategorySerializer < ActiveModel::Serializer
       {
         id: x.id,
         name: x.name,
-        image_url: Cloudinary::Utils.cloudinary_url(x.photos.first.key, cloud_name: ENV['cloudinary_cloud_name'] )
+        image_url: Cloudinary::Utils.cloudinary_url(x.photos.first.key, cloud_name: ENV['cloudinary_cloud_name'] ),
         # image_url: url_for(x.photos.last),
         public_url: x.public_url
       }
