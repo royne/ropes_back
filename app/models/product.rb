@@ -12,7 +12,7 @@ class Product < ApplicationRecord
   end
 
   def set_public_url
-    str = self.public_url.strip.gsub(" ", "-")
+    str = self.public_url.strip.gsub(" ", "-").gsub("#", "")
     self.public_url = str
   end
 end
