@@ -13,7 +13,7 @@ module Api
     
       # GET /products/1
       def show
-        product = params[:type_id].present? ? Product.find(params[:id]) : Product.find_by(name: params[:id])
+        product = params[:type_id].present? ? Product.find(params[:id]) : Product.find_by(public_url: params[:id])
         render json: product
       end
     
@@ -31,18 +31,6 @@ module Api
         else
           render json: @product.errors, status: :unprocessable_entity
         end
-        # if @product.save
-        #   if Rails.env.production?
-        #     result_image = Cloudinary::Uploader.upload(params[:image_file][:image], :folder => "artykrea/") 
-        #     @product.update(image_url: result_image['secure_url'])
-        #   else  
-        #     @product.update(image: params[:image_file][:image])
-        #     @product.update(image_url: rails_blob_url(@product.image))  
-        #   end
-        #   render json: @product, status: :created
-        # else
-        #   render json: @product.errors, status: :unprocessable_entity
-        # end
       end
     
       # PATCH/PUT /products/1
@@ -66,7 +54,7 @@ module Api
         end
     
         def product_params
-          params.require(:product).permit(:name, :description, :dimension, :category_id, {:photos => [], :color_ids => []})
+          params.require(:product).permit(:name, :description, :dimension, :category_id, :public_url, {:photos => [], :color_ids => []})
         end
       
     end

@@ -1,7 +1,7 @@
 class ProductSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :name, :dimension, :description, :photos, :colors, :category
+  attributes :id, :name, :dimension, :description, :photos, :colors, :category, :public_url
 
   def photos
     #  object.photos.map { |x| url_for(x) }

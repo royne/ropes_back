@@ -16,7 +16,7 @@ module Api
     
       # GET /products/1
       def show
-        category = Category.find_by(name: params[:id])
+        category = Category.find_by(public_url: params[:id])
         render json: category
       end
     
@@ -52,7 +52,7 @@ module Api
         end
     
         def category_params
-          params.require(:category).permit(:name, :image, :parent_category_id)
+          params.require(:category).permit(:name, :image, :parent_category_id, :public_url)
         end
       
     end

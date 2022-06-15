@@ -1,7 +1,7 @@
 class CategorySerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :name, :image, :products, :sub_categories
+  attributes :id, :name, :image, :products, :sub_categories, :public_url
 
   def image
      object.image.attached? ? rails_blob_url(object.image) : "" 
@@ -13,13 +13,14 @@ class CategorySerializer < ActiveModel::Serializer
         id: x.id,
         name: x.name,
         image_url: Cloudinary::Utils.cloudinary_url(x.photos.first.key, cloud_name: ENV['cloudinary_cloud_name'] )
-        # image_url: url_for(x.photos.last)
+        # image_url: url_for(x.photos.last),
+        public_url: x.public_url
       }
     end
   end
 
   def sub_categories 
-    object.sub_categories ? object.sub_categories.map {|x| x.name} : []
+    object.sub_categories ? object.sub_categories.map {|x| {name: x.name, public_url: x.public_url}} : []
   end
   
 end

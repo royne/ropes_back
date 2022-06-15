@@ -6,6 +6,7 @@ class Category < ApplicationRecord
   has_one_attached :image
 
   before_create :name_downcase
+  before_create :set_public_url
   after_create :assign_parent
 
   scope :parents, -> { where(:parent_category_id => nil)}
@@ -19,6 +20,11 @@ class Category < ApplicationRecord
 
   def name_downcase
     self.name.downcase
+  end
+
+  def set_public_url
+    str = self.public_url.strip.gsub(" ", "-")
+    self.public_url = str
   end
 
 end
